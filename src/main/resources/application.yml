@@ -1,0 +1,32 @@
+server:
+  servlet:
+    context-path: /stackoverflow
+
+spring:
+  main:
+    allow-bean-defination-overide: true
+  jackson:
+    serialization.INDENT_OUTPUT: true
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5433/postgresondocker?currentSchema=stackoverflow&ssl=false&useUnicode=yes&characterEncoding=UTF-8
+    username: postgresondocker
+    password: postgresondocker
+  flyway:
+    enabled: true
+    schemas: stackoverflow
+    location: classpath:/db/migration
+  jpa:
+    properties:
+      hibernate:
+        dialect: com.altimetrik.stackoverflow.infra.dialect.CustomPostgreSqlDialect
+        temp:
+          use_jdbc_metadata_defaults: false
+        hbm2ddl:
+          auto: update
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+loggin:
+  pattern.console: "severity : %level | logger : %c %M[%F]: %L | message: %message %rEx %n"
